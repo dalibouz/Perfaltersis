@@ -1,20 +1,30 @@
-export default async function (context, commands) {
-//await commands.measure.start('http://front-end-autoinstrument-smetest.apps.aps.lab/index.html');
-//await commands.navigate('http://front-end-autoinstrument-smetest.apps.aps.lab/index.html');
-
-//await commands.wait.byCssSelector('#login', 30000);
-//await commands.click.byIdAndWait('login');
-
-//await commands.addText.byId('dali', 'username');
-//await commands.addText.byId('dali', 'password');
-
-//await commands.js.run(`document.querySelector('.text-center:nth-child(3) > .btn').click();`);
-//await commands.click.byClassName('gf-timepicker-nav-btn');
-
-await commands.measure.start('http://front-end-autoinstrument-smetest.apps.aps.lab/index.html');
-await commands.measure.start('http://front-end-autoinstrument-smetest.apps.aps.lab/category.html');
-await commands.measure.start('http://front-end-autoinstrument-smetest.apps.aps.lab/detail.html?id=03fef6ac-1896-4ce8-bd69-b798f85c6e0b');
+export default async function (context, command) {
 
 
-return commands.measure.start('http://front-end-autoinstrument-smetest.apps.aps.lab/basket.html');
+  try {
+    // We start by navigating to the Home page.
+    await command.measure.start('HomePage');
+    await command.navigate('http://front-end-autoinstrument-smetest.apps.aps.lab');
+    await command.measure.stop();
+
+    await command.measure.start('Category page');
+    await command.click.byXpathAndWait('//*[@id="tabCatalogue"]/ul/li/div/div/div[3]/ul/li[1]/a');
+    await command.measure.stop();
+
+    await command.measure.start('View detail');
+    await command.click.byXpathAndWait('//*[@id="products"]/div[1]/div/div[2]/p[2]/a[1]');
+    await command.measure.stop();
+
+    await command.measure.start('Add to cart');
+    await command.click.byXpathAndWait('//*[@id="buttonCart"]');
+    await command.measure.stop();
+
+    await command.measure.start('View basket');
+    await command.click.byXpathAndWait('//*[@id="basket-overview"]/a');
+    await command.measure.stop();
+
+  } catch (e) {
+
+    throw e;
+  }
 };
