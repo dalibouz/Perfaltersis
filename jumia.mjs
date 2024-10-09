@@ -3,7 +3,7 @@ export default async function (context, commands) {
 
     try {
       // We start by navigating to the login page.
-      await commands.measure.start('01-HomePage');
+      await commands.measure.start('HomePage');
       await commands.navigate('https://www.jumia.com.tn/');
       await commands.measure.stop();
 
